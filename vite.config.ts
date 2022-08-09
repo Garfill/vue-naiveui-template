@@ -30,7 +30,7 @@ export default defineConfig({
       plugins: [
         postcssPresetEnv({
           autoprefixer: {
-            overrideBrowserslist: ['Chrome > 40', 'ff > 31', 'ie 11']
+            overrideBrowserslist: ['last 2 version, >1%, not dead']
           }
         })
       ]
