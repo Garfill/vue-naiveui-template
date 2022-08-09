@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "stage": "vue-tsc --noEmit && vite --mode stage",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "npm run lint:script && npm run lint:style",
@@ -44,6 +45,8 @@
     "unocss": "^0.45.5",
     "vite": "^3.0.0",
     "vite-plugin-eslint": "^1.7.0",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-svg-loader": "^3.4.0",
     "vue-tsc": "^0.38.4"
   }
 }

@@ -5,7 +5,7 @@
 </script>
 
 <template>
-  <HelloWorld msg="hello world" />
+  <HelloWorld msg="hello world"></HelloWorld>
 </template>
 
 <style scoped></style>

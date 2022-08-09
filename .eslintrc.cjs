@@ -32,6 +32,15 @@ module.exports = {
         "vue/html-closing-bracket-newline": ["error", {
             "singleline": "never",
             "multiline": "never"
+        }],
+        "vue/html-self-closing": ["error", {
+            "html": {
+                "void": "never",
+                "normal": "always",
+                "component": "never"
+            },
+            "svg": "always",
+            "math": "always"
         }]
     },
     "overrides": [
