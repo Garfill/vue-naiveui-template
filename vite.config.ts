@@ -34,6 +34,6 @@ export default defineConfig({
       presets: [],
       rules: [['m-1', { margin: '10px' }]]
     }),
-    viteEslint()
+    viteEslint({ fix: true })
   ]
 });

@@ -1,14 +1,13 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
     },
     "extends": [
         "eslint:recommended",
-        "plugin:vue/vue3-essential",
+        // "plugin:vue/vue3-essential",
+        'plugin:vue/vue3-recommended',
         "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "plugin:prettier/recommended"
     ],
     "parser": "vue-eslint-parser",
     "parserOptions": {
@@ -19,13 +18,28 @@ module.exports = {
     "plugins": [
         "vue",
         "@typescript-eslint",
-        "prettier"
     ],
     "rules": {
-        "prettier/prettier": "error",
         "indent": ["error", 2],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
-    }
+        "vue/script-indent": ["error", 2, {
+            "baseIndent": 1,
+            "switchCase": 0,
+            "ignores": []
+        }],
+        "vue/html-closing-bracket-newline": ["error", {
+            "singleline": "never",
+            "multiline": "never"
+        }]
+    },
+    "overrides": [
+        {
+            "files": ["*.vue"],
+            "rules": {
+                "indent": "off"
+            }
+        }
+    ]
 };
