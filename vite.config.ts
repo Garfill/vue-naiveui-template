@@ -1,6 +1,5 @@
-import { defineConfig } from 'vite';
+import { defineConfig, normalizePath } from 'vite';
 // 样式相关
-import { normalizePath } from 'vite';
 import path from 'path';
 import postcssPresetEnv from 'postcss-preset-env';
 import Unocss from 'unocss/vite';
@@ -16,6 +15,10 @@ const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
 export default defineConfig({
   server: {
     open: true,
+  },
+  optimizeDeps: {
+    force: true,
+    entries: ['**/*.vue']
   },
   css: {
     preprocessorOptions: {

@@ -13,7 +13,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "allowJs": true,
-    "types": ["vite-svg-loader"]
+    "types": ["vite/client", "vite-svg-loader"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

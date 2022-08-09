@@ -1,10 +1,16 @@
 <script setup lang="ts">
+  import _ from 'lodash';
   import { ref } from 'vue';
   import SvgIcon from './SvgIcon.vue';
   defineProps<{ msg: string }>();
 
   const count = ref(0);
-  console.log('import.meta.env', import.meta.env);
+
+  const addCount = _.throttle(() => {
+    count.value++;
+  }, 1000, {
+    trailing: false,
+  });
 </script>
 
 <template>
@@ -12,7 +18,7 @@
     <div
       type="button"
       class="button"
-      @click="() => count++">
+      @click="addCount">
       count is {{ count }}
     </div>
     <p>{{ msg }}</p>
