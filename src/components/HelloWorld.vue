@@ -1,33 +1,27 @@
 <script setup lang="ts">
-  import _ from 'lodash';
-  import { ref } from 'vue';
   import SvgIcon from './SvgIcon.vue';
-  defineProps<{ msg: string }>();
-
-  const count = ref(0);
-
-  const addCount = _.throttle(() => {
-    count.value++;
-  }, 1000, {
-    trailing: false,
-  });
+  import ViteIcon from '@icon/vite.svg';
 </script>
 
 <template>
-  <div class="card m-1">
-    <div
-      type="button"
-      class="button"
-      @click="addCount">
-      count is {{ count }}
+  <div class="icon-list">
+    <div class="icon-item">
+      <i class="i-ph-anchor-simple-thin" />
     </div>
-    <p>{{ msg }}</p>
+    <div class="icon-item">
+      <SvgIcon name="vue"></SvgIcon>
+    </div>
+    <div class="icon-item">
+      <vite-icon></vite-icon>
+    </div>
   </div>
-  <SvgIcon name="vue"></SvgIcon>
+  <n-button type="success">
+    success
+  </n-button>
 </template>
 
-<style scoped lang="scss">
-.card {
-  color: $theme-color;
-}
+<style lang="scss" scoped>
+  .icon-list {
+    font-size: 30px;
+  }
 </style>

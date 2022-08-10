@@ -18,7 +18,7 @@
   }
   const props = withDefaults(defineProps<SvgProps>(), {
     prefix: 'icon',
-    color: '#333'
+    color: 'currentColor'
   });
 
   const symbolId = computed(() => {
