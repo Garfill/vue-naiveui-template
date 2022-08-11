@@ -24,3 +24,5 @@
 
 ### Other
 - 默认安装 VueUse，不用的可以删除 :)
+- `unplugin-vue-components` 自动导入 `src/components` 下的组件和 UI框架组件
+- `unplugin-auto-import` 自动导入 Vue 相关 api
