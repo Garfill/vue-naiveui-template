@@ -107,8 +107,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolvePath('src'),
-      '@assets': resolvePath('src/assets'),
-      '@icon': resolvePath('src/icon'),
+      '@a': resolvePath('src/assets'),
+      '@i': resolvePath('src/icon'),
+      '@v': resolvePath('src/view')
     }
   }
 });

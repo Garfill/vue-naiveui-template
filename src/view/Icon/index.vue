@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import ViteIcon from '@icon/vite.svg';
+  import ViteIcon from '@i/vite.svg';
 </script>
 
 <template>
