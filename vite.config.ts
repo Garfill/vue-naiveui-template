@@ -10,6 +10,9 @@ import vue from '@vitejs/plugin-vue';
 import viteEslint from 'vite-plugin-eslint';
 import svgLoader from 'vite-svg-loader';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
 
 // scss 全局样式路径
 const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
@@ -76,6 +79,29 @@ export default defineConfig({
         //   }        
         // ]
       }
+    }),
+    // 自动引入相关
+    AutoImport({
+      include: [/\.vue$/, /\.vue\?vue /],
+      imports: [
+        'vue',
+        'vue-router',
+        '@vueuse/core',
+        'pinia',
+        {
+          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+        },
+      ],
+      dts: './auto-imports.d.ts',
+    }),
+    Components({
+      dts: true,
+      dirs: ['src/components'],
+      types: [{
+        from: 'vue-router',
+        names: ['RouterLink', 'RouterView'],
+      }],
+      resolvers: [NaiveUiResolver(), VueUseComponentsResolver()]
     })
   ],
   resolve: {

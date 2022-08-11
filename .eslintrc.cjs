@@ -41,6 +41,9 @@ module.exports = {
             },
             "svg": "always",
             "math": "always"
+        }],
+        "vue/multi-word-component-names": ["error", {
+            ignores: ['index'], // 忽略 view 页面文件夹中的 index 页面和 组件中的index
         }]
     },
     "overrides": [

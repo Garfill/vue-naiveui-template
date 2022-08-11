@@ -23,4 +23,4 @@
 - 使用 `eslint` 和 `stylelint`，配合husky，实现统一样式规范
 
 ### Other
-- 默认安装 Lodash 工具库，不用的可以删除 :)
+- 默认安装 VueUse，不用的可以删除 :)
