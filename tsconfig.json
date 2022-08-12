@@ -11,22 +11,43 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "skipLibCheck": true,
     "allowJs": true,
     "types": [
-      "vite/client", 
+      "vite/client",
       "naive-ui/volar",
       "vite-svg-loader",
     ],
     "paths": {
-      "@/*": ["src/*"],
-      "@a/*": ["src/assets/*"],
-      "@i/*": ["src/icon/*"],
-      "@v/*": ["src/view/*"],
-
+      "@/*": [
+        "src/*"
+      ],
+      "@a/*": [
+        "src/assets/*"
+      ],
+      "@i/*": [
+        "src/icon/*"
+      ],
+      "@v/*": [
+        "src/view/*"
+      ],
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "auto-imports.d.ts",
+    "components.d.ts",
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

@@ -1,9 +1,7 @@
-<script setup>
-  const msg = 'login';
+<script lang="ts" setup>
+  const msg = ref('msg');
 </script>
 
 <template>
-  <div>
-    {{ msg }}
-  </div>
+  <div>{{ msg }}</div>
 </template>
