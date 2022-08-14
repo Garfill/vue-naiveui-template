@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <router-view></router-view>
-</template> 
-
-<style scoped></style>
+  <div class="app-container">
+    <router-view></router-view>
+  </div>
+</template>

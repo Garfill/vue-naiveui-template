@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  const msg = ref('msg');
+  const msg = ref('login page');
 </script>
 
 <template>
