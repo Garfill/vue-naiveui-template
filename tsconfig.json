@@ -35,6 +35,9 @@
       "@v/*": [
         "src/view/*"
       ],
+      "@u/*": [
+        "src/utils/*"
+      ]
     }
   },
   "include": [

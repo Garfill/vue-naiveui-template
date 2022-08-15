@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import './style.css';
+import './style/index.scss';
 // unocss
 import 'uno.css';
 // svg-icon

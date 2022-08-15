@@ -8,14 +8,18 @@ import { presetUno, presetAttributify, presetIcons } from 'unocss';
 // vite相关
 import vue from '@vitejs/plugin-vue';
 import viteEslint from 'vite-plugin-eslint';
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'; // 扩展setup使用name
+// svg
 import svgLoader from 'vite-svg-loader';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+// 自动导入
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
 
 // scss 全局样式路径
 const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
+const mixinPath = normalizePath(path.resolve('./src/style/mixin.scss'));
 
 
 const resolvePath = (dir: string) => {
@@ -34,7 +38,10 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "${variablePath}";`
+        additionalData: `
+          @import "${variablePath}";
+          @import "${mixinPath}";
+        `
       }
     },
     postcss: {
@@ -49,17 +56,22 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    vueSetupExtend(),
     svgLoader({
       defaultImport: 'component'
     }),
     Unocss({
+      // 自定义规则
+      rules: [
+        ['w100p', { width: '100%' }],
+      ],
       presets: [
         presetAttributify({ /* preset options */ }),
         presetIcons({
           extraProperties: {
             'display': 'inline-block',
             'vertical-align': 'middle'
-          }
+          },
         }),
         presetUno(),
       ],
@@ -90,6 +102,9 @@ export default defineConfig({
         {
           'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
         },
+        {
+          '@u/resolvePromise': ['resolve']
+        }
       ],
       dts: './auto-imports.d.ts',
       dirs: [
@@ -117,7 +132,8 @@ export default defineConfig({
       '@': resolvePath('src'),
       '@a': resolvePath('src/assets'),
       '@i': resolvePath('src/icon'),
-      '@v': resolvePath('src/view')
+      '@v': resolvePath('src/view'),
+      '@u': resolvePath('src/utils'),
     }
   }
 });

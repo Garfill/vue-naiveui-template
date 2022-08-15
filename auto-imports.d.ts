@@ -71,6 +71,7 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault'];
   const refThrottled: typeof import('@vueuse/core')['refThrottled'];
   const refWithControl: typeof import('@vueuse/core')['refWithControl'];
+  const resolve: typeof import('@u/resolvePromise')['resolve'];
   const resolveComponent: typeof import('vue')['resolveComponent'];
   const resolveRef: typeof import('@vueuse/core')['resolveRef'];
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref'];
