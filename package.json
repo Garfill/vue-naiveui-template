@@ -1,9 +1,9 @@
 {
-  "name": "vite-project",
+  "name": "vue-naiveui-template",
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
-  "keywords": ["vue3", "naiveui", "vue3-naiveui-template"],
+  "keywords": ["vue", "naiveui", "vue-naiveui-template"],
   "scripts": {
     "dev": "vite",
     "stage": "vue-tsc --noEmit && vite --mode stage",

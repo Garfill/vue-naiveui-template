@@ -1,12 +1,17 @@
 <script setup lang="ts" name="App">
-  // This starter template is using Vue 3 <script setup> SFCs
-  // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+  import { GlobalThemeOverrides } from 'naive-ui';
+
+  const themeOverrides: GlobalThemeOverrides = {
+    // 用于以后全局设置
+  };
 </script>
 
 <template>
   <div class="app-container">
-    <n-message-provider>
-      <router-view></router-view>
-    </n-message-provider>
+    <n-config-provider :theme-overrides="themeOverrides">
+      <n-message-provider>
+        <router-view></router-view>
+      </n-message-provider>
+    </n-config-provider>
   </div>
 </template>

@@ -26,8 +26,8 @@
       "@/*": [
         "src/*"
       ],
-      "@a/*": [
-        "src/assets/*"
+      "@c/*": [
+        "src/components/*"
       ],
       "@i/*": [
         "src/icon/*"

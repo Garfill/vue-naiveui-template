@@ -4,7 +4,12 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [{
   path: '/',
   name: 'Dashboard',
-  component: () => import('@v/common/dashboard/index.vue')
+  component: () => import('@v/layout/dashboard/index.vue'),
+  children: [{
+    path: '/',
+    component: () => import('@v/dashboard/index.vue'),
+    name: 'Index'
+  }]
 }, {
   path: '/login',
   name: 'Login',
@@ -17,6 +22,9 @@ const routes: RouteRecordRaw[] = [{
   path: '/:pathMatch(.*)*',
   name: 'NotMatch',
   redirect: '/404',
+  meta: {
+    hidden: true
+  }
 }];
 
 const router = createRouter({
@@ -24,7 +32,7 @@ const router = createRouter({
   routes,
 });
 
-const whiteList = ['/404'];
+const whiteList = ['/login', '/404'];
 
 router.beforeEach((to, from) => {
   if (whiteList.includes(to.path)) {

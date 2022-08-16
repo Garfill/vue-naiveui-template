@@ -185,6 +185,7 @@
     "useObjectUrl": true,
     "useOffsetPagination": true,
     "useOnline": true,
+    "useOsTheme": true,
     "usePageLeave": true,
     "useParallax": true,
     "usePermission": true,

@@ -18,7 +18,7 @@ import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
 
 // scss 全局样式路径
-const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
+// const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
 const mixinPath = normalizePath(path.resolve('./src/style/mixin.scss'));
 
 
@@ -39,7 +39,6 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "${variablePath}";
           @import "${mixinPath}";
         `
       }
@@ -76,7 +75,10 @@ export default defineConfig({
         presetUno(),
       ],
     }),
-    viteEslint({ fix: true }),
+    viteEslint({
+      // fix: true, 打开时会在保存后按照eslint更改代码规范
+      failOnError: false, // 防止eslint报错导致运行失败 :(
+    }),
     createSvgIconsPlugin({
       iconDirs: [path.resolve(process.cwd(), 'src/icon')],
       symbolId: 'icon-[dir]-[name]',
@@ -100,17 +102,13 @@ export default defineConfig({
         'vue-router',
         '@vueuse/core',
         {
-          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar', 'useOsTheme'],
         },
         {
           '@u/resolvePromise': ['resolve']
         }
       ],
       dts: './auto-imports.d.ts',
-      dirs: [
-        './src/view/**',
-        './src/components/**'
-      ],
       eslintrc: {
         enabled: true, // Default `false`
         filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
@@ -119,7 +117,7 @@ export default defineConfig({
     }),
     Components({
       dts: true,
-      dirs: ['src/components'],
+      dirs: [],
       types: [{
         from: 'vue-router',
         names: ['RouterLink', 'RouterView'],
@@ -130,7 +128,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolvePath('src'),
-      '@a': resolvePath('src/assets'),
+      '@c': resolvePath('src/components'),
       '@i': resolvePath('src/icon'),
       '@v': resolvePath('src/view'),
       '@u': resolvePath('src/utils'),

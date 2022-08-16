@@ -1,7 +1,13 @@
 @import "./reset";
 
 .fix-all-center {
-  @include pos-all-center(fixed); }
+  @include pos-all-center(fixed);
+}
 
 .abs-all-center {
-  @include pos-all-center(absolute); }
+  @include pos-all-center(absolute);
+}
+
+.fix-all-zero {
+  @include pos-all-zero(fixed);
+}
