@@ -42,9 +42,7 @@
 </script>
 
 <template>
-  <div
-    v-gradient
-    class="login-container">
+  <div class="login-container">
     <n-space
       vertical
       class="abs-all-center form-container shadow">
@@ -88,13 +86,15 @@
 <style lang="scss" scoped>
 .login-container {
   height: 100vh;
-  background: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, .1);
+
   .form-container {
     width: 50%;
     max-width: 550px;
     padding: 20px;
     border-radius: 10px;
     background: #fff;
+
     .form-title {
       margin: 20px 0;
       font-size: 30px;

@@ -5,10 +5,15 @@ const routes: RouteRecordRaw[] = [{
   path: '/',
   name: 'Dashboard',
   component: () => import('@v/layout/dashboard/index.vue'),
+  redirect: '/home',
   children: [{
-    path: '/',
+    path: 'home',
     component: () => import('@v/dashboard/index.vue'),
-    name: 'Index'
+    name: 'Home',
+  }, {
+    path: 'https://www.baidu.com',
+    name: 'OutLink',
+    component: () => null,
   }]
 }, {
   path: '/login',
@@ -32,7 +37,7 @@ const router = createRouter({
   routes,
 });
 
-const whiteList = ['/login', '/404'];
+const whiteList = ['/404'];
 
 router.beforeEach((to, from) => {
   if (whiteList.includes(to.path)) {

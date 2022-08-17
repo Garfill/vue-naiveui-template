@@ -1,22 +1,27 @@
 <script setup name="DashboardLayout" lang="ts">
-  import Menu from '@c/Menu/index.vue';
+  import Sidebar from '@c/Sidebar/index.vue';
   
   const router = useRouter();
   const menuOptions = JSON.parse(JSON.stringify(router.options.routes));
+  const route = useRoute();
+  const keyRef = ref(route.fullPath);
 </script>
 
 <template>
   <n-layout
     has-sider
     class="app-layout">
-    <n-layout-sider>
-      <Menu :menu-options="menuOptions"></Menu>
+    <n-layout-sider class="app-sidebar">
+      <Sidebar
+        :menu-options="menuOptions"
+        :active-key="keyRef">
+      </Sidebar>
     </n-layout-sider>
     <n-layout>
       <n-layout-header>
         <n-avatar>G</n-avatar>
       </n-layout-header>
-      <n-layout-content class="app-layout-content">
+      <n-layout-content class="app-content">
         <router-view v-slot="{Component}">
           <keep-alive>
             <component :is="Component"></component>
@@ -31,7 +36,10 @@
   .app-layout {
     height: 100vh;
 
-    &-content {
+    // .app-sidebar {
+    //   border-right: 1px solid #ddd;
+    // }
+    .app-content {
       background: #ddd;
     }
   }

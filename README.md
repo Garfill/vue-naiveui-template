@@ -14,8 +14,7 @@
 - 集成使用 `unocss` 和 `scss`
 
 ### Icon
-- 使用 `@unocss/preset-icons`
-- 图标库使用 `@iconify-json/Phosphor`
+- 使用 `@unocss/preset-icons`，图标库使用 `@iconify-json/Phosphor` :) 可以自行替换不同图标库
 - 使用 `vite-plugin-svg-icons`生成雪碧图，支持 \<SvgIcon name="icon-name" color="color"/\> 组件，包含所有 src/icon 下的 svg 图标
 - 使用 `vite-svg-loader`，使用url或者组件形式直接使用
 
