@@ -77,7 +77,7 @@ export default defineConfig({
     }),
     viteEslint({
       // fix: true, 打开时会在保存后按照eslint更改代码规范
-      failOnError: false, // 防止eslint报错导致运行失败 :(
+      failOnError: false, // 防止eslint报错导致运行失败
     }),
     createSvgIconsPlugin({
       iconDirs: [path.resolve(process.cwd(), 'src/icon')],
@@ -100,13 +100,14 @@ export default defineConfig({
       imports: [
         'vue',
         'vue-router',
+        'pinia',
         '@vueuse/core',
         {
           'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar', 'useOsTheme'],
         },
         {
           '@u/resolvePromise': ['resolve']
-        }
+        },
       ],
       dts: './auto-imports.d.ts',
       eslintrc: {

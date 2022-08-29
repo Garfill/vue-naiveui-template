@@ -4,4 +4,4 @@
   </div>
 </template>
 
-<script></script>
+<script setup lang="ts" name="NotFound"></script>

@@ -1,6 +1,6 @@
 <script lang="ts" setup name="Login">
-  import { FormInst } from 'naive-ui';
   import { setToken } from '@/utils/token';
+  import { FormInst } from 'naive-ui';
   const message = useMessage();
   const router = useRouter();
 

@@ -9,13 +9,11 @@ import SvgIcon from '@c/SvgIcon/index.vue';
 import router from '@/router';
 
 import App from './App.vue';
-import gradientPoint from './directive/gradientPoint';
-
+import { pinia } from './store';
 const app = createApp(App);
 // 全局注册组件
 app.component('SvgIcon', SvgIcon);
-// 全局注册指令
-app.directive('gradient', gradientPoint);
 app.use(router);
+app.use(pinia);
 
 app.mount('#app');

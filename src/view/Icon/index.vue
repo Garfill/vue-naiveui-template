@@ -8,7 +8,7 @@
       <i class="i-ph-anchor-simple-thin" />
     </div>
     <div class="icon-item">
-      <vite-icon></vite-icon>
+      <ViteIcon></ViteIcon>
     </div>
     <svg-icon name="vue"></svg-icon>
   </div>
