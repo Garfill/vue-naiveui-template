@@ -1,4 +1,5 @@
 @import "./reset";
+@import "./animate";
 
 .fix-all-center {
   @include pos-all-center(fixed);

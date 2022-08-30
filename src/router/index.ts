@@ -2,6 +2,12 @@ import { useUserStoreOutside } from '@/store/modules/user';
 import { getToken } from '@/utils/token';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
+let loadingBarRef: any;
+export function registerLoading(ref: any) {
+  loadingBarRef = ref;
+}
+
+
 const commonRoutes: RouteRecordRaw[] = [
   {
     path: '/login',
@@ -25,7 +31,7 @@ const commonRoutes: RouteRecordRaw[] = [
 const asyncRoutes: RouteRecordRaw[] = [{
   path: '/',
   name: 'Dashboard',
-  component: () => import('@v/layout/dashboard/index.vue'),
+  component: () => import('@/layout/dashboard/index.vue'),
   redirect: '/home',
   meta: {
     title: '控制台'
@@ -40,7 +46,7 @@ const asyncRoutes: RouteRecordRaw[] = [{
   }, {
     path: 'icon',
     name: 'Icon',
-    component: () => import('@v/Icon/index.vue'),
+    component: () => import('@v/icon/index.vue'),
     meta: {
       title: '图标'
     }
@@ -57,7 +63,7 @@ const asyncRoutes: RouteRecordRaw[] = [{
     name: 'OutLink',
     component: () => null,
     meta: {
-      title: '百度(外链)'
+      title: '百度'
     },
   },]
 }];
@@ -83,6 +89,9 @@ router.beforeEach((to, from, next) => {
     next();
     return;
   }
+  if (loadingBarRef) {
+    loadingBarRef.start();
+  }
   if (!getToken()) {
     if (to.path !==  '/login') {
       // 没有token自动重定向到 /login 页面
@@ -90,9 +99,11 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
+    loadingBarRef.finish();
   } else {
     if (to.path === '/login') {
       next({ path: '/', replace: true });
+      loadingBarRef.finish();
       return;
     }
     // 已经有token，视为登录态
@@ -105,6 +116,7 @@ router.beforeEach((to, from, next) => {
       } else {
         next();
       }
+      loadingBarRef.finish();
     }, 100);
   }
 });

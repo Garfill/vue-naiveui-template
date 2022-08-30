@@ -102,12 +102,8 @@ export default defineConfig({
         'vue-router',
         'pinia',
         '@vueuse/core',
-        {
-          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar', 'useOsTheme'],
-        },
-        {
-          '@u/resolvePromise': ['resolve']
-        },
+        { 'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar', 'useOsTheme'] },
+        { '@u/resolvePromise': ['resolve'] },
       ],
       dts: './auto-imports.d.ts',
       eslintrc: {
@@ -119,6 +115,7 @@ export default defineConfig({
     Components({
       dts: true,
       dirs: [],
+      directives: true,
       types: [{
         from: 'vue-router',
         names: ['RouterLink', 'RouterView'],
