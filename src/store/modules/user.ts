@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 interface UserInfo {
   isLogin: boolean,
@@ -12,14 +12,14 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     setMenu(menus: any[]) {
-      this.menus = menus;
+      this.menus = menus
     },
     setLogin(state = false) {
-      this.isLogin = state;
+      this.isLogin = state
     }
   }
-});
+})
 
 export function useUserStoreOutside() {
-  return useUserStore();
+  return useUserStore()
 }

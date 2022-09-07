@@ -1,30 +1,30 @@
-import { defineConfig, normalizePath } from 'vite';
-import path from 'path';
+import { defineConfig, normalizePath } from 'vite'
+import path from 'path'
 // 样式相关
-import postcssPresetEnv from 'postcss-preset-env';
-import Unocss from 'unocss/vite';
-import { presetUno, presetAttributify, presetIcons } from 'unocss';
+import postcssPresetEnv from 'postcss-preset-env'
+import Unocss from 'unocss/vite'
+import { presetUno, presetAttributify, presetIcons } from 'unocss'
 
 // vite相关
-import vue from '@vitejs/plugin-vue';
-import viteEslint from 'vite-plugin-eslint';
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'; // 扩展setup使用name
+import vue from '@vitejs/plugin-vue'
+import viteEslint from 'vite-plugin-eslint'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend' // 扩展setup使用name
 // svg
-import svgLoader from 'vite-svg-loader';
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import svgLoader from 'vite-svg-loader'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 // 自动导入
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers'
 
 // scss 全局样式路径
 // const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
-const mixinPath = normalizePath(path.resolve('./src/style/mixin.scss'));
+const mixinPath = normalizePath(path.resolve('./src/style/mixin.scss'))
 
 
 const resolvePath = (dir: string) => {
-  return path.resolve(__dirname, dir);
-};
+  return path.resolve(__dirname, dir)
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -132,4 +132,4 @@ export default defineConfig({
       '@u': resolvePath('src/utils'),
     }
   }
-});
+})

@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-  import {computed} from 'vue';
+  import {computed} from 'vue'
 
   interface SvgProps {
     name: string,
@@ -19,11 +19,11 @@
   const props = withDefaults(defineProps<SvgProps>(), {
     prefix: 'icon',
     color: 'currentColor'
-  });
+  })
 
   const symbolId = computed(() => {
-    return `#${props.prefix}-${props.name}`;
-  });
+    return `#${props.prefix}-${props.name}`
+  })
 
 </script>
 

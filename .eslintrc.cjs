@@ -24,7 +24,7 @@ module.exports = {
         "indent": ["error", 2],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
-        "semi": ["error", "always"],
+        "semi": ["warn", "never"],
         "@typescript-eslint/no-explicit-any": ["off"],
         "vue/script-indent": ["error", 2, {
             "baseIndent": 1,

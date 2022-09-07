@@ -5,12 +5,15 @@
 </template>
 
 <script lang="ts" setup name="AppContainer">
-  import { registerLoading } from '@/router/index';
+  import { registerLoading } from '@/router/index'
+  import { registerMessage } from '@/directive/clipboard/index'
 
-  const loadingBar = useLoadingBar();
+  const loadingBar = useLoadingBar()
+  const message = useMessage()
   onMounted(() => {
-    registerLoading(loadingBar);
-    loadingBar.finish();
-  });
+    registerLoading(loadingBar)
+    registerMessage(message)
+    loadingBar.finish()
+  })
 
 </script>

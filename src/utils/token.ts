@@ -1,10 +1,10 @@
-const token_key = 'vite_token';
+const token_key = 'vite_token'
 
 
 export function setToken(token = '') {
-  localStorage.setItem(token_key, token);
+  localStorage.setItem(token_key, token)
 }
 
 export function getToken() {
-  return localStorage.getItem(token_key);
+  return localStorage.getItem(token_key)
 }

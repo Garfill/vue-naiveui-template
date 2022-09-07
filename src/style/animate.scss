@@ -1,14 +1,20 @@
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.page-animate-enter-from {
+  opacity: 0.1;
+  transform: scale(0.8);
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
+.page-animate-leave-to {
+  opacity: 0.1;
+  transform: scale(1.1);
 }
 
-.fade-enter-to,
-.fade-leave-from {
+.page-animate-enter-active,
+.page-animate-leave-active {
+  transition: all 0.3s linear;
+}
+
+.page-animate-enter-to,
+.page-animate-leave-from {
   opacity: 1;
+  transform: scale(1);
 }

@@ -1,12 +1,12 @@
 <script setup name="DashboardLayout" lang="ts">
-  import Sidebar from '@c/Sidebar/index.vue';
-  import Header from '@c/Header/index.vue';
-  import { useUserStore } from '@/store/modules/user';
+  import Sidebar from '@c/Sidebar/index.vue'
+  import Header from '@c/Header/index.vue'
+  import { useUserStore } from '@/store/modules/user'
 
-  const userInfo = useUserStore();
-  const menuOptions = userInfo.menus;
-  const route = useRoute();
-  const keyRef = ref(route.fullPath);
+  const userInfo = useUserStore()
+  const menuOptions = userInfo.menus
+  const route = useRoute()
+  const keyRef = ref(route.fullPath)
 </script>
 
 <template>
@@ -37,7 +37,7 @@
         <div class="app-content shadow">
           <router-view v-slot="{ Component }">
             <transition
-              name="fade"
+              name="page-animate"
               mode="out-in">
               <keep-alive>
                 <component :is="Component"></component>
@@ -59,7 +59,7 @@
   }
 
   .app-content {
-    margin: 8px;
+    margin: 16px 8px;
     padding: 8px;
     border-radius: 4px;
     background: #fff;

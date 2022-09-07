@@ -11,67 +11,67 @@
 </template>
 
 <script setup name="Sidebar" lang="ts">
-  import { MenuOption, MenuInst, NIcon } from 'naive-ui';
-  import { RouterLink } from 'vue-router';
-  import { BookmarkOutline } from '@vicons/ionicons5';
+  import { MenuOption, MenuInst, NIcon } from 'naive-ui'
+  import { RouterLink } from 'vue-router'
+  import { BookmarkOutline } from '@vicons/ionicons5'
 
 
   interface MenuCompProps {
     menuOptions: any[],
     activeKey?: string,
-
   }
-  const props = defineProps<MenuCompProps>();
-  const selectedKey = ref<string | null>(null);
-  const menuInstRef = ref<MenuInst | null>(null);
+  const props = defineProps<MenuCompProps>()
+  const selectedKey = ref<string | null>(null)
+  const menuInstRef = ref<MenuInst | null>(null)
 
   function isOutLink(path: string) {
-    return /^https?:\/\/\w+/.test(path);
+    return /^https?:\/\/\w+/.test(path)
   }
 
   function normalizeOption(options: any[], parentPath = '') {
-    let res: MenuOption[] = [];
+    let res: MenuOption[] = []
     for (let i = 0; i < options.length; i++) {
-      let route = options[i];
-      if (route.meta?.hidden) continue;
+      let route = options[i]
+      if (route.meta?.hidden) continue
       let menuItem: MenuOption = {
         label: route.meta?.title || '空白菜单',
-      };
+      }
       if (isOutLink(route.path)) {
-        menuItem.key = menuItem.path = route.path || route.redirect;
+        menuItem.key = menuItem.path = route.path || route.redirect
       } else {
-        menuItem.key = menuItem.path = parentPath + route.path;
+        menuItem.key = menuItem.path = parentPath + route.path
       }
       if (route.children) {
-        let childMenu = normalizeOption(route.children, route.path);
-        menuItem.children = childMenu.length ? childMenu : undefined;
+        let childMenu = normalizeOption(route.children, route.path)
+        menuItem.children = childMenu.length ? childMenu : undefined
       }
-      res.push(menuItem);
+      res.push(menuItem)
     }
-    return res;
+    return res
   }
-  const renderOptions = normalizeOption(props.menuOptions);
+  const renderOptions = normalizeOption(props.menuOptions)
 
   function renderLabel(option: MenuOption) {
     if (isOutLink(option.key as string)) {
-      return h('a', { href: option.path, target: '_blank' }, option.label as string);
+      return h('a', { href: option.path, target: '_blank' }, option.label as string)
     } else {
       if (option.children?.length) {
-        return h('div', null, option.label as string);
+        return h('div', null, option.label as string)
       } else {
-        return h(RouterLink, { to: option.path as string }, { default: () => option.label });
+        return h(RouterLink, { to: option.path as string }, { default: () => option.label })
       }
     }
   }
   function renderIcon() {
-    return h(NIcon, null, { default: () => h(BookmarkOutline) });
+    return h(NIcon, null, { default: () => h(BookmarkOutline) })
   }
 
-  onMounted(() => {
-    if (props.activeKey) {
-      selectedKey.value = props.activeKey;
-      menuInstRef.value?.showOption(props.activeKey);
-    }
-  });
+  function updateMenu(key: string) {
+    selectedKey.value = key
+    menuInstRef.value?.showOption(key)
+  }
 
+  watch(() => props.activeKey, (key) => {
+    updateMenu(key || '')
+  }, { immediate: true })
 </script>

@@ -31,7 +31,6 @@
   "dependencies": {
     "@vueuse/components": "^9.1.0",
     "@vueuse/core": "^9.1.0",
-    "clipboard": "^2.0.11",
     "pinia": "^2.0.18",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"

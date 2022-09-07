@@ -1,14 +1,14 @@
 <script lang="ts" setup name="Login">
-  import { setToken } from '@/utils/token';
-  import { FormInst } from 'naive-ui';
-  const message = useMessage();
-  const router = useRouter();
+  import { setToken } from '@/utils/token'
+  import { FormInst } from 'naive-ui'
+  const message = useMessage()
+  const router = useRouter()
 
-  const loading = ref(false);
+  const loading = ref(false)
   const form = ref({
     user: 'admin',
     password: '123456',
-  });
+  })
   const rules = {
     user: {
       required: true,
@@ -20,24 +20,24 @@
       message: '请输入密码',
       trigger: 'blur'
     }
-  };
-  const formRef = ref<FormInst | null>(null);
+  }
+  const formRef = ref<FormInst | null>(null)
 
   function setLoading(status: boolean) {
-    loading.value = status || false;
+    loading.value = status || false
   }
 
   async function handleValidate() {
-    const [err] = await resolve(formRef.value?.validate());
+    const [err] = await resolve(formRef.value?.validate())
     if (err) {
-      return message.error('请填写账号密码');
+      return message.error('请填写账号密码')
     }
-    setLoading(true);
-    setToken('vue_naive_token');
+    setLoading(true)
+    setToken('vue_naive_token')
     setTimeout(() => {
-      setLoading(false);
-      router.push('/');
-    }, 1000);
+      setLoading(false)
+      router.push('/')
+    }, 1000)
   }
 </script>
 

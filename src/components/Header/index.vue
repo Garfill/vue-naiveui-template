@@ -1,40 +1,40 @@
 <script lang="ts" name="Header" setup>
-  import { useUserStore } from '@/store/modules/user';
-  import { setToken } from '@/utils/token';
-  import { Settings20Regular as Settings } from '@vicons/fluent';
+  import { useUserStore } from '@/store/modules/user'
+  import { setToken } from '@/utils/token'
+  import { Settings20Regular as Settings } from '@vicons/fluent'
   const headerStyle = {
     color: '#fff',
     backgroundColor: 'skyblue'
-  };
+  }
 
   const options = [
     {
       label: '退出登录',
       key: 'logout',
     }
-  ];
+  ]
 
-  const userInfo = useUserStore();
+  const userInfo = useUserStore()
   function handleSelect(key: string | number) {
     switch (key) {
     case 'logout':
-      logout();
-      break;
+      logout()
+      break
     default: 
-      break;
+      break
     }
   }
   
-  const router = useRouter();
+  const router = useRouter()
   function logout() {
-    setToken();
-    clearUserInfo();
-    router.replace('/login');    
+    setToken()
+    clearUserInfo()
+    router.replace('/login')    
   }
 
   function clearUserInfo() {
-    userInfo.setLogin(false);
-    userInfo.setMenu([]);
+    userInfo.setLogin(false)
+    userInfo.setMenu([])
   }
 </script>
 

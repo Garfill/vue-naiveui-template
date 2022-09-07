@@ -1,14 +1,25 @@
-import { useUserStoreOutside } from '@/store/modules/user';
-import { getToken } from '@/utils/token';
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useUserStoreOutside } from '@/store/modules/user'
+import { getToken } from '@/utils/token'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-let loadingBarRef: any;
+let loadingBarRef: any
 export function registerLoading(ref: any) {
-  loadingBarRef = ref;
+  loadingBarRef = ref
 }
 
 
 const commonRoutes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'Index',
+    component: () => import('@/layout/dashboard/index.vue'),
+    meta: {
+      title: '首页',
+      hidden: true,
+    },
+    redirect: '/dashboard',
+    children: [],
+  },
   {
     path: '/login',
     name: 'Login',
@@ -26,31 +37,29 @@ const commonRoutes: RouteRecordRaw[] = [
       hidden: true,
     }
   }
-];
+]
 
 const asyncRoutes: RouteRecordRaw[] = [{
-  path: '/',
-  name: 'Dashboard',
-  component: () => import('@/layout/dashboard/index.vue'),
-  redirect: '/home',
+  path: '/dashboard',
+  component: () => import('@v/dashboard/index.vue'),
+  name: 'Home',
   meta: {
     title: '控制台'
-  },
-  children: [{
-    path: 'home',
-    component: () => import('@v/dashboard/index.vue'),
-    name: 'Home',
-    meta: {
-      title: '首页'
-    }
-  }, {
-    path: 'icon',
-    name: 'Icon',
-    component: () => import('@v/icon/index.vue'),
-    meta: {
-      title: '图标'
-    }
-  }]
+  }
+}, {
+  path: '/icon',
+  name: 'Icon',
+  component: () => import('@v/icon/index.vue'),
+  meta: {
+    title: '图标'
+  }
+}, {
+  path: '/clipboard',
+  name: 'Clipboard',
+  component: () => import('@v/clipboard/index.vue'),
+  meta: {
+    title: '剪切板'
+  }
 }, {
   path: '/outlink',
   component: null,
@@ -65,8 +74,9 @@ const asyncRoutes: RouteRecordRaw[] = [{
     meta: {
       title: '百度'
     },
-  },]
-}];
+  }]
+}
+]
 
 const NotMatchRoute = {
   path: '/:pathMatch(.*)*',
@@ -75,66 +85,69 @@ const NotMatchRoute = {
   meta: {
     hidden: true
   }
-};
+}
 
 const router = createRouter({
   history: createWebHistory(),
   routes: commonRoutes,
-});
+})
 
-const whiteList = ['/404'];
+const whiteList = ['/404']
 
 router.beforeEach((to, from, next) => {
   if (whiteList.includes(to.path)) {
-    next();
-    return;
+    next()
+    return
   }
   if (loadingBarRef) {
-    loadingBarRef.start();
+    loadingBarRef.start()
   }
   if (!getToken()) {
-    if (to.path !==  '/login') {
+    if (to.path !== '/login') {
       // 没有token自动重定向到 /login 页面
-      next({ path: '/login', replace: true });
+      next({ path: '/login', replace: true })
     } else {
-      next();
+      return
     }
-    loadingBarRef.finish();
   } else {
     if (to.path === '/login') {
-      next({ path: '/', replace: true });
-      loadingBarRef.finish();
-      return;
+      next({ path: '/', replace: true })
+      return
     }
     // 已经有token，视为登录态
     // 此处获取用户信息，校验是否过期
     setTimeout(() => {
-      const userInfo = useUserStoreOutside();
+      const userInfo = useUserStoreOutside()
       if (!userInfo.isLogin) {
-        genUserRoute(userInfo);
-        next({path: to.path, replace: true });
+        genUserRoute(userInfo)
+        next({ path: to.path, replace: true })
       } else {
-        next();
+        next()
       }
-      loadingBarRef.finish();
-    }, 100);
+    }, 100)
   }
-});
+})
+
+router.afterEach((to, from) => {
+  if (loadingBarRef) {
+    loadingBarRef.finish()
+  }
+})
 
 function genUserRoute(userInfo: any) {
-  addRoute([...asyncRoutes, NotMatchRoute]);
+  addRoute([...asyncRoutes, NotMatchRoute], 'Index') // 添加到根路径下
   userInfo.setMenu([
     ...commonRoutes,
     ...asyncRoutes,
     NotMatchRoute
-  ]);
-  userInfo.setLogin(true);
+  ])
+  userInfo.setLogin(true)
 }
 
-export function addRoute(routes: RouteRecordRaw[]) {
+export function addRoute(routes: RouteRecordRaw[], parentName = '') {
   routes.forEach(item => {
-    router.addRoute(item);
-  });
+    router.addRoute(parentName, item)
+  })
 }
 
-export default router;
+export default router
