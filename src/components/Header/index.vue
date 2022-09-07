@@ -2,11 +2,6 @@
   import { useUserStore } from '@/store/modules/user'
   import { setToken } from '@/utils/token'
   import { Settings20Regular as Settings } from '@vicons/fluent'
-  const headerStyle = {
-    color: '#fff',
-    backgroundColor: 'skyblue'
-  }
-
   const options = [
     {
       label: '退出登录',
@@ -45,9 +40,7 @@
       trigger="hover"
       :options="options"
       @select="handleSelect">
-      <n-avatar :style="headerStyle">
-        A
-      </n-avatar>
+      admin
     </n-dropdown>
     <n-icon
       size="30"

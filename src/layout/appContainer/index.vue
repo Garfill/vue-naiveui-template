@@ -12,8 +12,8 @@
   const message = useMessage()
   onMounted(() => {
     registerLoading(loadingBar)
-    registerMessage(message)
     loadingBar.finish()
+    registerMessage(message)
   })
 
 </script>

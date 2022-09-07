@@ -61,6 +61,13 @@ const asyncRoutes: RouteRecordRaw[] = [{
     title: '剪切板'
   }
 }, {
+  path: '/driver',
+  name: 'Driver',
+  component: () => import('@v/driver/index.vue'),
+  meta: {
+    title: '引导页'
+  }
+},{
   path: '/outlink',
   component: null,
   name: 'Outlink',
