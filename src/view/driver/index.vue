@@ -1,15 +1,14 @@
 <template>
   <div>
-    <n-button
-      type="primary"
-      @click="restart">
-      点击开始
-    </n-button>
     <div>
       <div
         id="step-one"
         class="step shadow">
-        第一步
+        <n-button
+          type="primary"
+          @click="restart">
+          点击开始
+        </n-button>
       </div>
       <div
         id="step-two"
@@ -61,19 +60,18 @@
   let driver: any
 
   onMounted(() => {
-    driver = driver = new Driver({
+    driver = new Driver({
       nextBtnText: '下一步',
       prevBtnText: '上一步',
       doneBtnText: '完成',
-      closeBtnText: '关闭'
+      closeBtnText: '关闭',
+    // allowClose: false, // 如果触发按钮在step的node之外需要设置
     })
+    driver.defineSteps(steps)
   })
 
   function restart() {
-    driver.defineSteps(steps)
-    setTimeout(() => {
-      driver.start()
-    }, 0)
+    driver.start()
   }
 
 
