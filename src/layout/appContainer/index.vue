@@ -6,7 +6,7 @@
 
 <script lang="ts" setup name="AppContainer">
   import { registerLoading } from '@/router/index'
-  import { registerMessage } from '@/directive/clipboard/index'
+  import { registerMessage } from '@/register/message'
 
   const loadingBar = useLoadingBar()
   const message = useMessage()

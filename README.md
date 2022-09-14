@@ -22,7 +22,10 @@
 ### Lint
 - 使用 `eslint` 和 `stylelint`，配合husky，实现统一样式规范
 
-### Other
+### 框架相关
 - 默认安装 VueUse，不用的可以删除 :)
 - `unplugin-vue-components` 自动导入 `src/components` 下的组件(会失去点击跳转进入组件文件的快捷) 和 UI框架组件
 - `unplugin-auto-import` 自动导入 Vue 相关 api
+
+### Mock
+- 20220914 增加 vite-plugin-mock 插件

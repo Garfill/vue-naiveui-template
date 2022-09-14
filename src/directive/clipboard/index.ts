@@ -1,13 +1,9 @@
 import { useClipboard, useEventListener } from '@vueuse/core'
 import type { DirectiveBinding } from 'vue'
+import { message } from '@/register/message'
 
 const cleanupMap = new Map()
 const { copy } = useClipboard()
-
-let message: any
-export const registerMessage = (msg: any) => {
-  message = msg
-}
 
 const cleanupElListener = (el: HTMLElement) => {
   const cleanup = cleanupMap.get(el)
@@ -18,11 +14,14 @@ const cleanupElListener = (el: HTMLElement) => {
 const registerElListener = (el: HTMLElement, value: string) => {
   const cleanup = useEventListener(el, 'click', () => {
     copy(value)
-    if (message) {
-      message.success('Copy Success!')
-    }
+    message && message.success('Copy Success!')
   })
   cleanupMap.set(el, cleanup)
+}
+const removeEl = (el: HTMLElement) => {
+  if (cleanupMap.has(el)) {
+    cleanupMap.delete(el)
+  }
 }
 
 
@@ -37,5 +36,6 @@ export default {
   },
   beforeUnmount(el: HTMLElement) {
     cleanupElListener(el)
+    removeEl(el)
   },
 }

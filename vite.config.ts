@@ -21,12 +21,14 @@ import { NaiveUiResolver, VueUseComponentsResolver } from 'unplugin-vue-componen
 // const variablePath = normalizePath(path.resolve('./src/style/variable.scss'));
 const mixinPath = normalizePath(path.resolve('./src/style/mixin.scss'))
 
+// mock
+import { viteMockServe } from 'vite-plugin-mock'
+
 
 const resolvePath = (dir: string) => {
   return path.resolve(__dirname, dir)
 }
 
-// https://vitejs.dev/config/
 export default defineConfig({
   server: {
     open: true,
@@ -56,8 +58,25 @@ export default defineConfig({
   plugins: [
     vue(),
     vueSetupExtend(),
+    // icon直接当组件使用
     svgLoader({
       defaultImport: 'component'
+    }),
+    // <svg-icon>使用
+    createSvgIconsPlugin({
+      iconDirs: [path.resolve(process.cwd(), 'src/icon')],
+      symbolId: 'icon-[dir]-[name]',
+      svgoOptions: {
+        // plugins: [
+        //  // 清除图标原有的fill
+        //   {
+        //     name: "removeAttrs",
+        //     params: {
+        //       attrs: "fill",
+        //     }
+        //   }        
+        // ]
+      }
     }),
     Unocss({
       // 自定义规则
@@ -79,21 +98,6 @@ export default defineConfig({
       // fix: true, 打开时会在保存后按照eslint更改代码规范
       failOnError: false, // 防止eslint报错导致运行失败
     }),
-    createSvgIconsPlugin({
-      iconDirs: [path.resolve(process.cwd(), 'src/icon')],
-      symbolId: 'icon-[dir]-[name]',
-      svgoOptions: {
-        // plugins: [
-        //  // 清除图标原有的fill
-        //   {
-        //     name: "removeAttrs",
-        //     params: {
-        //       attrs: "fill",
-        //     }
-        //   }        
-        // ]
-      }
-    }),
     // 自动引入相关
     AutoImport({
       include: [/\.vue$/, /\.vue\?vue /],
@@ -108,8 +112,8 @@ export default defineConfig({
       dts: './auto-imports.d.ts',
       eslintrc: {
         enabled: true, // Default `false`
-        filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
-        globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+        filepath: './.eslintrc-auto-import.json',
+        globalsPropValue: true,
       },
     }),
     Components({
@@ -121,6 +125,10 @@ export default defineConfig({
         names: ['RouterLink', 'RouterView'],
       }],
       resolvers: [NaiveUiResolver(), VueUseComponentsResolver()]
+    }),
+    // mock
+    viteMockServe({
+      mockPath: 'mock',
     })
   ],
   resolve: {

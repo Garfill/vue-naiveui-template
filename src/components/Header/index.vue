@@ -40,7 +40,9 @@
       trigger="hover"
       :options="options"
       @select="handleSelect">
-      admin
+      <n-avatar>
+        {{ userInfo.info?.name }}
+      </n-avatar>
     </n-dropdown>
     <n-icon
       size="30"

@@ -1,3 +1,4 @@
+import { getUserProfile } from '@/api/user'
 import { useUserStoreOutside } from '@/store/modules/user'
 import { getToken } from '@/utils/token'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
@@ -76,7 +77,7 @@ const asyncRoutes: RouteRecordRaw[] = [{
   },
   children: [{
     path: 'https://www.baidu.com',
-    name: 'OutLink',
+    name: 'Baidu',
     component: () => null,
     meta: {
       title: '百度'
@@ -101,7 +102,7 @@ const router = createRouter({
 
 const whiteList = ['/404']
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (whiteList.includes(to.path)) {
     next()
     return
@@ -122,32 +123,32 @@ router.beforeEach((to, from, next) => {
       return
     }
     // 已经有token，视为登录态
-    // 此处获取用户信息，校验是否过期
-    setTimeout(() => {
-      const userInfo = useUserStoreOutside()
-      if (!userInfo.isLogin) {
-        genUserRoute(userInfo)
-        next({ path: to.path, replace: true })
-      } else {
-        next()
-      }
-    }, 100)
+    // 获取用户信息，校验是否过期
+    const userInfo = useUserStoreOutside()
+    if (!userInfo.isLogin) {
+      await genUserRoute(userInfo)
+      next({ path: to.path, replace: true })
+    } else {
+      next()
+    }
   }
 })
 
 router.afterEach((to, from) => {
-  if (loadingBarRef) {
-    loadingBarRef.finish()
-  }
+  loadingBarRef && loadingBarRef.finish()
 })
 
-function genUserRoute(userInfo: any) {
+async function genUserRoute(userInfo: any) {
+  const { data: { data } } = await getUserProfile()
+
   addRoute([...asyncRoutes, NotMatchRoute], 'Index') // 添加到根路径下
   userInfo.setMenu([
     ...commonRoutes,
     ...asyncRoutes,
     NotMatchRoute
   ])
+
+  userInfo.setUserInfo(data)
   userInfo.setLogin(true)
 }
 
