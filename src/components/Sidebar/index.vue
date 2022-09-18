@@ -7,6 +7,7 @@
     :render-icon="renderIcon"
     :collapsed-width="64"
     :collapsed-icon-size="22"
+    :collapsed="collapsed"
     inverted></n-menu>
 </template>
 
@@ -14,7 +15,7 @@
   import { MenuOption, MenuInst, NIcon } from 'naive-ui'
   import { RouterLink } from 'vue-router'
   import { BookmarkOutline } from '@vicons/ionicons5'
-
+  import { useSettingStore } from '@/store/modules/setting'
 
   interface MenuCompProps {
     menuOptions: any[],
@@ -74,4 +75,8 @@
   watch(() => props.activeKey, (key) => {
     updateMenu(key || '')
   }, { immediate: true })
+
+
+  const projectSetting = useSettingStore()
+  const collapsed = computed(() => projectSetting.collapsed)
 </script>

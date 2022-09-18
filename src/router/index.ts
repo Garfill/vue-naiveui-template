@@ -68,7 +68,14 @@ const asyncRoutes: RouteRecordRaw[] = [{
   meta: {
     title: '引导页'
   }
-},{
+}, {
+  path: '/point',
+  name: 'Point',
+  component: () => import('@v/point/index.vue'),
+  meta: {
+    title: '光标跟踪'
+  }
+}, {
   path: '/outlink',
   component: null,
   name: 'Outlink',

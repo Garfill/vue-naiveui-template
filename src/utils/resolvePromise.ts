@@ -8,7 +8,7 @@ export function resolve<T>(promise: Promise<T> | undefined): Promise<any> {
         res([null, resp])
       })
       .catch((error: any) => {
-        res([error, {}])
+        res([error, null])
       })
   })
 }

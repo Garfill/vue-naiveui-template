@@ -1,28 +1,60 @@
 // 元素上鼠标光标移动追踪
+// 模仿 Fleet(https://www.jetbrains.com/fleet/) 官网效果
 
 const posMap = new Map()
 
+function caculatePos(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  return {
+    x: rect.left,
+    y: rect.top,
+  }
+}
+
+function cachePos(el: HTMLElement) {
+  const pos = caculatePos(el)
+  posMap.set(el, pos)
+  return pos
+}
+
+function getPos(el:HTMLElement) {
+  let pos = posMap.get(el)
+  if (!pos) {
+    pos = cachePos(el)
+  }
+  return pos
+}
+
+
 export default {
   mounted(el: HTMLElement) {
-    const pos = getPos(el)
-    posMap.set(el, pos)
+    cachePos(el)
+    el.addEventListener('mouseenter', handleMouseEnter)
     el.addEventListener('mousemove', handleMouseMove)
     el.addEventListener('mouseleave', handleMouseLeave)
   },
   unmounted(el: HTMLElement) {
+    el.removeEventListener('mouseenter', handleMouseEnter)
     el.removeEventListener('mousemove', handleMouseMove)
     el.removeEventListener('mouseleave', handleMouseLeave)
   },
 }
 
+function handleMouseEnter(e: MouseEvent) {
+  const el = e.currentTarget as HTMLElement
+  cachePos(el)
+  handleMouseMove(e)
+}
+
 
 function handleMouseMove(e: MouseEvent) {
+  const x = e.clientX
+  const y = e.clientY
   const el = e.currentTarget as HTMLElement
+  const pos = getPos(el)
+  const renderX = x - pos.x
+  const renderY = y - pos.y
   const radius = el.getAttribute('gradient-radius') || 50
-  const { pageX, pageY } = e
-  const { x, y } = posMap.get(el)
-  const renderX = pageX - x
-  const renderY = pageY - y
   setStyle(
     el,
     'background-image',
@@ -38,17 +70,4 @@ function handleMouseLeave(e: MouseEvent) {
 
 function setStyle(el: HTMLElement, prop: string, value: string) {
   el.style.setProperty(prop, value)
-}
-
-function getPos(el: HTMLElement) {
-  let x = 0, y = 0
-
-  while (el !== document.documentElement) {
-    x += el.offsetLeft
-    y += el.offsetTop
-    el = el.parentElement as HTMLElement
-  }
-
-
-  return { x, y }
 }

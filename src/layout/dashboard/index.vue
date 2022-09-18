@@ -2,11 +2,18 @@
   import Sidebar from '@c/Sidebar/index.vue'
   import Header from '@c/Header/index.vue'
   import { useUserStore } from '@/store/modules/user'
+  import { useSettingStore } from '@/store/modules/setting'
 
   const userInfo = useUserStore()
   const menuOptions = userInfo.menus
   const route = useRoute()
   const keyRef = ref(route.fullPath)
+
+  const projectSetting = useSettingStore()
+  const setCollapse = (status: boolean) => {
+    projectSetting.setCollapse(status)
+  }
+  const collapsed = computed(() => projectSetting.collapsed)
 </script>
 
 <template>
@@ -18,10 +25,13 @@
       class="app-sidebar"
       show-trigger
       bordered
-      collapse-mode="width"
-      :width="240"
       :collapsed-width="64"
-      inverted>
+      collapse-mode="width"
+      :collapsed="collapsed"
+      :width="240"
+      inverted
+      @collapse="setCollapse(true)"
+      @expand="setCollapse(false)">
       <Sidebar
         :menu-options="menuOptions"
         :active-key="keyRef">

@@ -11,10 +11,12 @@ import router from '@/router'
 import App from './App.vue'
 import { pinia } from './store'
 import clipboard from './directive/clipboard'
+import point from './directive/point'
 const app = createApp(App)
 
 // 全局注册指令
 app.directive('clipboard', clipboard)
+app.directive('point', point)
 
 // 全局注册组件
 app.component('SvgIcon', SvgIcon)
