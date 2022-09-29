@@ -26,11 +26,6 @@ module.exports = {
         "quotes": ["error", "single"],
         "semi": ["warn", "never"],
         "@typescript-eslint/no-explicit-any": ["off"],
-        "vue/script-indent": ["error", 2, {
-            "baseIndent": 1,
-            "switchCase": 0,
-            "ignores": []
-        }],
         "vue/html-closing-bracket-newline": ["error", {
             "singleline": "never",
             "multiline": "never"
