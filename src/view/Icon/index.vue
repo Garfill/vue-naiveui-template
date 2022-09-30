@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import ViteIcon from '@i/vite.svg'
-  import { LogoVue } from '@vicons/ionicons5'
+import { AccessTime24Filled } from '@vicons/fluent'
 
   onMounted(() => {
     let icons = document.querySelectorAll('.icon')
@@ -45,7 +45,7 @@
         class=" icon-item icon-item-vue"
         style="--back: rgba(51, 54, 57, .3)">
         <n-icon size="30">
-          <LogoVue></LogoVue>
+          <AccessTime24Filled></AccessTime24Filled>
         </n-icon>
       </div>
       <div class="code-block">

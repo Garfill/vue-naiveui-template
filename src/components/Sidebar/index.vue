@@ -14,7 +14,7 @@
 <script setup name="Sidebar" lang="ts">
   import { MenuOption, MenuInst, NIcon } from 'naive-ui'
   import { RouterLink } from 'vue-router'
-  import { BookmarkOutline } from '@vicons/ionicons5'
+import { Bookmark16Filled } from '@vicons/fluent'
   import { useSettingStore } from '@/store/modules/setting'
 
   interface MenuCompProps {
@@ -64,7 +64,7 @@
     }
   }
   function renderIcon() {
-    return h(NIcon, null, { default: () => h(BookmarkOutline) })
+    return h(NIcon, null, { default: () => h(Bookmark16Filled) })
   }
 
   function updateMenu(key: string) {

@@ -1,4 +1,4 @@
-// 元素上鼠标光标移动追踪
+// 鼠标光标移动追踪
 // 模仿 Fleet(https://www.jetbrains.com/fleet/) 官网效果
 
 const posMap = new Map()
@@ -25,6 +25,9 @@ function getPos(el:HTMLElement) {
   return pos
 }
 
+function deletePos(el: HTMLElement) {
+  posMap.delete(el)
+}
 
 export default {
   mounted(el: HTMLElement) {
@@ -32,12 +35,27 @@ export default {
     el.addEventListener('mouseenter', handleMouseEnter)
     el.addEventListener('mousemove', handleMouseMove)
     el.addEventListener('mouseleave', handleMouseLeave)
+
+    el._resizeHandler =  handleEvent(window, 'resize', () => {
+      cachePos(el)
+    })
   },
   unmounted(el: HTMLElement) {
     el.removeEventListener('mouseenter', handleMouseEnter)
+    el.removeEventListener('mouseenter', handleMouseEnter)
     el.removeEventListener('mousemove', handleMouseMove)
     el.removeEventListener('mouseleave', handleMouseLeave)
+
+    el._resizeHandler()
+    deletePos(el)
   },
+}
+
+function handleEvent(el: any, event: string, fn: any) {
+  el.addEventListener(event, fn)
+  return () => {
+    el.removeEventListener(event, fn)
+  }
 }
 
 function handleMouseEnter(e: MouseEvent) {

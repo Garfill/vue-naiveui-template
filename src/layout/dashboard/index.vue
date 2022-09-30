@@ -15,17 +15,25 @@ const projectSetting = useSettingStore()
 const setCollapse = (status: boolean) => {
   projectSetting.setCollapse(status)
 }
+const setDevice = (name: string) => {
+  projectSetting.setDevice(name)
+}
 const collapsed = computed(() => projectSetting.collapsed)
-
+const device = computed(() => projectSetting.device)
 // 监听页面大小变化
 function resizeHandler() {
   const innerWidth = window.innerWidth
   if (innerWidth < WidthSetting.pc) {
     // 小尺寸pc屏幕
     setCollapse(true)
+    if (innerWidth < WidthSetting.mobile) {
+      setDevice('mobile')
+    }
   } else {
     // 大尺寸屏幕
     setCollapse(false)
+    setDevice('pc')
+
   }
 }
 const debounceResizeHandler = debounce(resizeHandler, 200)
@@ -37,10 +45,11 @@ onMounted(() => {
 
 <template>
   <n-layout
-    has-sider
+    :has-sider="device === 'pc'"
     class="app-layout">
     <!-- sidebar -->
     <n-layout-sider
+      v-show="device === 'pc'"
       class="app-sidebar"
       show-trigger
       bordered
@@ -91,15 +100,12 @@ onMounted(() => {
 
   &-content {
     --navbar-height: 60px;
-    margin-top: var(--navbar-height);
+    margin: var(--navbar-height) 8px 0;
     height: calc(100vh - var(--navbar-height));
-    background: transparent;
   }
 
   .app-content {
-    margin: 8px;
     border-radius: 4px;
-    background: #fff;
   }
 }
 </style>
