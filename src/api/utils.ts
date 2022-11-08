@@ -27,6 +27,19 @@ const renderMessage: MessageRenderMessage = (props) => {
     }
   )
 }
+
+interface ResponseData {
+  code: number
+  data: any
+  message?: string
+}
+
+
+const enum ResponseCode {
+  success = 200,
+  fail = 500,
+}
+
 const axiosInstance: AxiosInstance = axios.create({
   baseURL,
   timeout: 5 * 1000,
@@ -44,15 +57,15 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   function (response) {
-    const { data } = response
-    if (data.code !== 200) {
+    const data: ResponseData = response.data
+    if (data.code !== ResponseCode.success) {
       const message = data.message || '网络错误'
       msg.error(message, {
         render: renderMessage,
       })
       return Promise.reject(message)
     }
-    return response
+    return data
   },
   function (error) {
     msg.error('服务异常，请联系管理员~')
@@ -61,13 +74,8 @@ axiosInstance.interceptors.response.use(
 )
 
 
-
-interface RequestInterceptor {
-  (config: AxiosRequestConfig): any
-}
-interface ResponseInterceptor {
-  (response: AxiosResponse): any
-}
+type RequestInterceptor = (config: AxiosRequestConfig) => any
+type ResponseInterceptor = (response: AxiosResponse) => any
 
 export interface ExtraConfig {
   onRequest?: RequestInterceptor | RequestInterceptor[];
@@ -95,6 +103,8 @@ export const useAxios = async (option: CompoundRequestConfig) => {
   const [error, response] = await resolve(axiosInstance.request(option))
   if (error) {
     // 单个请求的错误处理
+    console.log(error)
+    return error
   }
   onResponse && callInterceptor(onResponse, response)
   return response 

@@ -76,6 +76,13 @@ const asyncRoutes: RouteRecordRaw[] = [{
     title: '光标跟踪'
   }
 }, {
+  path: '/richtext',
+  name: 'Richtext',
+  meta: {
+    title: '富文本'
+  },
+  component: () => import('@v/richtext/index.vue')
+}, {
   path: '/outlink',
   component: null,
   name: 'Outlink',
@@ -111,8 +118,7 @@ const whiteList = ['/404']
 
 router.beforeEach(async (to, from, next) => {
   if (whiteList.includes(to.path)) {
-    next()
-    return
+    return next()
   }
   if (loadingBarRef) {
     loadingBarRef.start()
@@ -122,7 +128,7 @@ router.beforeEach(async (to, from, next) => {
       // 没有token自动重定向到 /login 页面
       next({ path: '/login', replace: true })
     } else {
-      return
+      next()
     }
   } else {
     if (to.path === '/login') {
@@ -133,11 +139,12 @@ router.beforeEach(async (to, from, next) => {
     // 获取用户信息，校验是否过期
     const userInfo = useUserStoreOutside()
     if (!userInfo.isLogin) {
-      await genUserRoute(userInfo)
+      await getUserRoute(userInfo)
       next({ path: to.path, replace: true })
     } else {
       next()
     }
+    return
   }
 })
 
@@ -145,8 +152,9 @@ router.afterEach((to, from) => {
   loadingBarRef && loadingBarRef.finish()
 })
 
-async function genUserRoute(userInfo: any) {
-  const { data: { data } } = await getUserProfile()
+async function getUserRoute(userInfo: any) {
+  const userProfile = await getUserProfile()
+  const data = userProfile?.data
 
   addRoute([...asyncRoutes, NotMatchRoute], 'Index') // 添加到根路径下
   userInfo.setMenu([

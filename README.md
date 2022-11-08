@@ -28,4 +28,8 @@
 - `unplugin-auto-import` 自动导入 Vue 相关 api
 
 ### Mock
-- 20220914 增加 vite-plugin-mock 插件
+- 2022.9.14 增加 vite-plugin-mock 插件
+
+## 富文本
+- 2022.8.11 新增 Richtext 组件，内部使用[wangeditor](https://www.wangeditor.com/)
+

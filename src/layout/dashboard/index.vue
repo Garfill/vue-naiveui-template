@@ -28,6 +28,8 @@ function resizeHandler() {
     setCollapse(true)
     if (innerWidth < WidthSetting.mobile) {
       setDevice('mobile')
+    } else {
+      setDevice('pc')
     }
   } else {
     // 大尺寸屏幕

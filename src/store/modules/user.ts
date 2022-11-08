@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user', {
       this.isLogin = state
     },
     setUserInfo(info: Info) {
-      this.info = info
+      this.info = info || {}
     }
   }
 })
