@@ -18,7 +18,6 @@ import { getToken } from '@/utils/token'
 import { createEditor, createToolbar } from '@wangeditor/editor'
 import { IEditorConfig } from '@wangeditor/editor'
 import '@wangeditor/editor/dist/css/style.css'
-import type { RichContentType } from '@c/Richtext/custom-types'
 
 interface EditorProps {
   autofocus?: boolean // 初始化后自动对焦
@@ -27,7 +26,7 @@ interface EditorProps {
   mode?: 'default' | 'simple'
   height?: string
   uploadUrl?: string
-  modelValue: RichContentType
+  modelValue: string
 }
 
 
@@ -42,13 +41,13 @@ const props = withDefaults(defineProps<EditorProps>(), {
 
 const emit = defineEmits<{
   (event: 'init-finish', editor: any): void
-  (event: 'update:modelValue', content: RichContentType): void
+  (event: 'update:modelValue', content: string): void
 }>()
 
 const editor = shallowRef() // 这里只能用 shallowRef!!
 const toolbar = ref()
 
-function handleChange(content: RichContentType) {
+function handleChange(content: string) {
   emit('update:modelValue', content)
 }
 
@@ -56,9 +55,8 @@ function initEidtor(props: EditorProps) {
   const editorConfig: Partial<IEditorConfig> = {
     placeholder: props.placeholder,
     onChange(editor: any) {
-      const html = editor.getHtml()
-      const text = editor.getText()
-      handleChange({html, text})
+      const html: string = editor.getHtml()
+      handleChange(html)
     },
     MENU_CONF: {}
   }

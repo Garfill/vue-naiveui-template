@@ -8,10 +8,9 @@
 
 <script lang="ts" setup name="Richtext">
 import Richtext from '@c/Richtext/index.vue'
-import type { RichContentType } from '@c/Richtext/custom-types'
 import { Ref } from 'vue'
 
-const content: Ref<RichContentType> = ref({})
+const content: Ref<string> = ref('')
 
 function initFinish(editor: any) {
   console.log('editor', editor)

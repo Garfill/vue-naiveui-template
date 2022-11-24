@@ -12,8 +12,3 @@ declare module '@wangeditor/editor' {
     children: SlateDescendant[]
   }
 }
-
-export interface RichContentType {
-  html?: string
-  text?: string
-}
